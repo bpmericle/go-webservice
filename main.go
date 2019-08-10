@@ -1,11 +1,15 @@
 package main
 
 import (
-	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
-	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
+
+	"github.com/bpmericle/go-webservice/cmd"
+	"github.com/bpmericle/go-webservice/configs"
 )
 
 func init() {
@@ -17,17 +21,24 @@ func init() {
 	log.SetOutput(os.Stdout)
 
 	// Only log the warning severity or above.
-	log.SetLevel(log.InfoLevel)
+	log.SetLevel(configs.LogLevel())
 }
 
 func main() {
-	log.Info("starting service")
+	startTime := time.Now()
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		sig := <-sigs
+		log.WithField("uptime", time.Since(startTime).String()).
+			WithField("signal", sig.String()).
+			Error("interrupt signal detected")
+		os.Exit(0)
+	}()
 
-	r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome"))
-	})
+	server := cmd.Server{
+		Port: configs.Port(),
+	}
 
-	log.Info("start service on port 3000")
-	http.ListenAndServe(":3000", r)
+	log.Fatal(server.ListenAndServe())
 }
