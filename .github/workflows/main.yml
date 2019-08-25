@@ -1,15 +1,16 @@
-name: CI
+name: Go Service CI
 
 on: [push]
 
 jobs:
   build:
-    name: Building Service
+    name: Build Go Service
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Service Source Code
+    - name: Checkout Source Code
       uses: actions/checkout@v1
-    - name: Build Service
+    - name: Execute Build
       uses: actions/docker/cli@master
       with:
-        args: build -t ${{github.repository}}:${{github.sha}} .
+        args: build -t ${{ github.repository }}:${{ github.sha }} .
+    timeout-minutes: 3
