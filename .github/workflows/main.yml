@@ -13,8 +13,12 @@ jobs:
       uses: actions/docker/cli@master
       with:
         args: build -t ${{ github.repository }}:${{ github.sha }} .
-    - name: Push image to reposotory
-      uses: actions/docker/cli-multi@master
+    - name: Login to image reposotory
+      uses: actions/docker/cli@master
       with:
-        args: ["login --username=bpmericle --email=brian.mericle@gmail.com --password=${{ secrets.DockerHubPassword }}", "push ${{ github.repository }}:${{ github.sha }}"]
-    timeout-minutes: 3
+        args: login --username=bpmericle --email=brian.mericle@gmail.com --password=${{ secrets.ImageRepositoryPassword }}
+    - name: Push image to image reposotory
+      uses: actions/docker/cli@master
+      with:
+        args: push ${{ github.repository }}:${{ github.sha }}
+    timeout-minutes: 4
