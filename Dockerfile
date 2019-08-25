@@ -28,7 +28,7 @@ RUN go install
 # Final small image
 FROM alpine:3.10
 
-RUN apk add ca-certificates
+RUN apk --no-cache add ca-certificates
 
 COPY --from=builder /go/bin/go-webservice /bin/go-webservice
 ENTRYPOINT ["/bin/go-webservice"]

@@ -4,12 +4,12 @@ on: [push]
 
 jobs:
   build:
-    name: Build service action
+    name: Building Service
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout source code
+    - name: Checkout Service Source Code
       uses: actions/checkout@v1
-    - name: Run multi-stage Docker build
+    - name: Build Service
       uses: actions/docker/cli@master
       with:
         args: build -t ${{github.repository}}:${{github.sha}} .
