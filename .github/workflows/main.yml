@@ -30,9 +30,9 @@ jobs:
     - name: Pull image from image reposotory
       uses: actions/docker/cli-multi@master
       with:
-        args: |
-          login --username=bpmericle --password=${{ secrets.ImageRepositoryPassword }}
-          pull ${{ github.repository }}:${{ github.sha }}
+        args:
+          - "login --username=bpmericle --password=${{ secrets.ImageRepositoryPassword }}"
+          - "pull ${{ github.repository }}:${{ github.sha }}"   
 #    - name: Login to image reposotory
 #      uses: actions/docker/cli@master
 #      with:
