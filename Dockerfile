@@ -31,5 +31,4 @@ FROM alpine:3.10
 RUN apk add ca-certificates
 
 COPY --from=builder /go/bin/go-webservice /bin/go-webservice
-#ENTRYPOINT ["/bin/go-webservice"]
-CMD ["/bin/go-webservice"]
+ENTRYPOINT ["/bin/go-webservice"]
