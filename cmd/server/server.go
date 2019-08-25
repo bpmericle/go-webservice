@@ -1,4 +1,4 @@
-package cmd
+package server
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ type Server struct {
 // ListenAndServe will start the web server and listen for requests
 func (s *Server) ListenAndServe() error {
 
-	// setup router
+	// setup CHI router
 	r := chi.NewRouter()
 
 	// setup middlewares

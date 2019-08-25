@@ -8,7 +8,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/bpmericle/go-webservice/cmd"
+	"github.com/bpmericle/go-webservice/cmd/server"
 	"github.com/bpmericle/go-webservice/configs"
 )
 
@@ -36,9 +36,9 @@ func main() {
 		os.Exit(0)
 	}()
 
-	server := cmd.Server{
+	s := server.Server{
 		Port: configs.Port(),
 	}
 
-	log.Fatal(server.ListenAndServe())
+	log.Fatal(s.ListenAndServe())
 }
