@@ -12,4 +12,4 @@ jobs:
     - name: Run multi-stage Docker build
       uses: actions/docker/cli@master
       with:
-        args: build -t {{ github.repository }}:{{ github.sha }} .
+        args: build -t ${{github.repository}}:${{github.sha}} .
