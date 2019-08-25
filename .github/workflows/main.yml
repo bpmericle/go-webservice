@@ -16,7 +16,7 @@ jobs:
     - name: Login to image reposotory
       uses: actions/docker/cli@master
       with:
-        args: login --username=bpmericle --email=brian.mericle@gmail.com --password=${{ secrets.ImageRepositoryPassword }}
+        args: login --username=bpmericle --password=${{ secrets.ImageRepositoryPassword }}
     - name: Push image to image reposotory
       uses: actions/docker/cli@master
       with:
