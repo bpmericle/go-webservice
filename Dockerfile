@@ -1,5 +1,5 @@
 # Gather build dependencies
-FROM golang:1.12.9-stretch as builder_base
+FROM golang:1.13rc2-alpine3.10 as builder_base
 
 WORKDIR /go/src/github.com/bpmericle/go-webservice
 
@@ -7,6 +7,8 @@ WORKDIR /go/src/github.com/bpmericle/go-webservice
 ENV GO111MODULE=on
 # Disable cgo - this makes static binaries that will work on an Alpine image
 ENV CGO_ENABLED=0
+# Use a proxy, instead of pulling direct from source
+ENV GOPROXY=https://proxy.golang.org,direct
 
 # Handle go modules setup
 COPY go.mod .
@@ -20,7 +22,7 @@ FROM builder_base AS builder
 COPY . .
 
 # Run the tests
-RUN go test -short -v ./...
+RUN go test -failfast -short -v ./...
 
 # Install binary
 RUN go install
@@ -28,7 +30,7 @@ RUN go install
 # Final small image
 FROM alpine:3.10
 
-RUN apk --no-cache add ca-certificates
-
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /go/bin/go-webservice /bin/go-webservice
+
 ENTRYPOINT ["/bin/go-webservice"]

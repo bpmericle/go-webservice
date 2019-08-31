@@ -34,7 +34,7 @@ func (s *Server) ListenAndServe() error {
 	r.Get("/health", handlers.Health)
 
 	address := fmt.Sprintf(":%d", s.Port)
-	log.WithField("address", address).Info("starting server")
+	log.WithField("address", address).Info("server starting")
 
 	return http.ListenAndServe(address, r)
 }
