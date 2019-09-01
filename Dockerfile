@@ -27,6 +27,13 @@ RUN go test -failfast -short -v ./...
 # Install binary
 RUN go install
 
+# Lint Helm Chart
+FROM alpine/helm:2.14.3
+
+COPY --from=builder /go/src/github.com/bpmericle/go-webservice/go-webservice-chart ./go-webservice-chart
+
+RUN helm lint ./go-webservice-chart
+
 # Final small image
 FROM alpine:3.10
 
