@@ -8,7 +8,6 @@ ENV GO111MODULE=on
 # Disable cgo - this makes static binaries that will work on an Alpine image
 ENV CGO_ENABLED=0
 # Use a proxy, instead of pulling direct from source
-#ENV GOPROXY=https://proxy.golang.org,direct
 ENV GOPROXY=https://gocenter.io,direct
 
 # Handle go modules setup
