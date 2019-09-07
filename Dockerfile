@@ -30,7 +30,7 @@ RUN go install
 # Lint helm chart
 FROM alpine/helm:2.14.3
 
-COPY --from=builder /go/src/github.com/bpmericle/go-webservice/go-webservice /go-webservice
+COPY --from=builder /go/src/github.com/bpmericle/go-webservice/charts/go-webservice /go-webservice
 
 RUN helm lint /go-webservice
 

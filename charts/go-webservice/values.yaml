@@ -4,10 +4,8 @@
 
 replicaCount: 1
 
-image:
-  repository: bpmericle/go-webservice
-  tag: latest
-  pullPolicy: IfNotPresent
+image: bpmericle/go-webservice:latest
+imagePullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
