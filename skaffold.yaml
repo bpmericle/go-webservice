@@ -1,0 +1,15 @@
+apiVersion: skaffold/v1beta13
+kind: Config
+build:
+  artifacts:
+  - image: bpmericle/go-webservice
+  local:
+    useDockerCLI: false
+    useBuildkit: true
+deploy:
+  helm:
+    releases:
+      - name: go-webservice
+        chartPath: charts/go-webservice
+        values:
+          image: bpmericle/go-webservice

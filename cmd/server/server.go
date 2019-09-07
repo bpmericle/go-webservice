@@ -30,6 +30,7 @@ func (s *Server) ListenAndServe() error {
 	r.Use(middleware.Recoverer)          // handles any unhandles errors and returns a 500
 
 	// setup supported routes
+	r.Get("/", handlers.Root)
 	r.Get("/health", handlers.Health)
 
 	address := fmt.Sprintf(":%d", s.Port)
