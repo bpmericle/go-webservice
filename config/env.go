@@ -17,7 +17,7 @@ const (
 	PortEnvVar = "PORT"
 
 	defaultLogLevel = logrus.DebugLevel // used if LOG_LEVEL not set
-	defaultPort     = 3000              // used if PORT not set
+	defaultPort     = 8080              // used if PORT not set
 )
 
 // LogLevel returns the log level set in the environment, or debug if not defined
