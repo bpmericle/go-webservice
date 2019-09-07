@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/bpmericle/go-webservice/internal/handlers"
 	"github.com/bpmericle/go-webservice/internal/logger"
-
-	"github.com/go-chi/chi"
-	log "github.com/sirupsen/logrus"
 )
 
 // Server represents the web server hosting the service

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/bpmericle/go-webservice/configs"
+	"github.com/bpmericle/go-webservice/config"
 	"github.com/go-chi/chi/middleware"
 	"github.com/sirupsen/logrus"
 )
@@ -17,7 +17,7 @@ import (
 func NewStructuredLogger() func(next http.Handler) http.Handler {
 	logger := logrus.New()
 	logger.Formatter = &logrus.JSONFormatter{}
-	logger.Level = configs.LogLevel()
+	logger.Level = config.LogLevel()
 
 	return middleware.RequestLogger(&StructuredLogger{logger})
 }

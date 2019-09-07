@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/bpmericle/go-webservice/cmd/server"
-	"github.com/bpmericle/go-webservice/configs"
+	"github.com/bpmericle/go-webservice/config"
 )
 
 func init() {
@@ -21,7 +21,7 @@ func init() {
 	log.SetOutput(os.Stdout)
 
 	// Only log the warning severity or above.
-	log.SetLevel(configs.LogLevel())
+	log.SetLevel(config.LogLevel())
 }
 
 func main() {
@@ -37,7 +37,7 @@ func main() {
 	}()
 
 	s := server.Server{
-		Port: configs.Port(),
+		Port: config.Port(),
 	}
 
 	log.Fatal(s.ListenAndServe())

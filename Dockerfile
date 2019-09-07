@@ -1,5 +1,5 @@
 # Gather build dependencies
-FROM golang:1.13rc2-alpine3.10 as builder_base
+FROM golang:1.13-stretch as builder_base
 
 WORKDIR /go/src/github.com/bpmericle/go-webservice
 
@@ -8,7 +8,8 @@ ENV GO111MODULE=on
 # Disable cgo - this makes static binaries that will work on an Alpine image
 ENV CGO_ENABLED=0
 # Use a proxy, instead of pulling direct from source
-ENV GOPROXY=https://proxy.golang.org,direct
+#ENV GOPROXY=https://proxy.golang.org,direct
+ENV GOPROXY=https://gocenter.io,direct
 
 # Handle go modules setup
 COPY go.mod .
@@ -26,13 +27,6 @@ RUN go test -failfast -short -v ./...
 
 # Install binary
 RUN go install
-
-# Lint Helm Chart
-FROM alpine/helm:2.14.3
-
-COPY --from=builder /go/src/github.com/bpmericle/go-webservice/go-webservice-chart ./go-webservice-chart
-
-RUN helm lint ./go-webservice-chart
 
 # Final small image
 FROM alpine:3.10
